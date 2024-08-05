@@ -19,8 +19,16 @@ export class AuthService extends PrismaClient implements OnModuleInit {
     return loginUserDto;
   }
 
-  registerUser(registerUserDto: RegisterUserDto) {
-    return registerUserDto;
+  async registerUser(registerUserDto: RegisterUserDto) {
+    const { email, password, name } = registerUserDto;
+
+    return await this.user.create({
+      data: {
+        email,
+        password,
+        name,
+      },
+    });
   }
 
   verifyToken() {

@@ -29,4 +29,6 @@ export const envs = {
   PORT: envVars.PORT,
 
   NATS_SERVER: envVars.NATS_SERVER,
+
+  JTW_SECRET: 'THIS A STRONG SECRET KEY FOR JWT',
 };

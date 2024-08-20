@@ -9,9 +9,15 @@ async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
-      transport: Transport.NATS,
+      transport: Transport.RMQ,
       options: {
-        servers: envs.NATS_SERVER,
+        queue: 'auth',
+        urls: [envs.RABBITMQ_SERVER],
+        noAck: false,
+        queueOptions: {
+          durable: true,
+          autoDelete: false,
+        },
       },
     },
   );
@@ -25,7 +31,7 @@ async function bootstrap() {
 
   await app.listen();
 
-  const logger = new Logger('NestApplication');
+  const logger = new Logger('Boostrap');
 
   logger.log(`App is running on http://localhost:${envs.PORT}`);
 }
